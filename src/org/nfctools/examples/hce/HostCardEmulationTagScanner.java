@@ -30,6 +30,7 @@ public class HostCardEmulationTagScanner extends AbstractTerminalTagScanner {
 				catch (Exception e1) {
 					card.disconnect(true);
 					e1.printStackTrace();
+					HceDemo.status_txt.append("Time Out\n");
 					try {
 						Thread.sleep(1000);
 					}
