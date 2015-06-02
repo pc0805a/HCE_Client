@@ -82,7 +82,8 @@ public class IsoDepTamaCommunicator extends AbstractTamaCommunicator {
 			
 			String[] temp = dataIn.split(":");
 
-			HceDemo.status_txt.append(dataIn+"\n");
+			HceDemo.status_txt.append("Received " + dataIn+"\n");
+			HceDemo.status_txt.setCaretPosition(HceDemo.status_txt.getDocument().getLength());
 			HceDemo.id_txt.setText(temp[1]);
 			
 			
