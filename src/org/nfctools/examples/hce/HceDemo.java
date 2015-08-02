@@ -1,6 +1,7 @@
 package org.nfctools.examples.hce;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -34,20 +35,25 @@ public class HceDemo {
 
 	static boolean isDataIn = false;
 
+	protected static boolean hasTerminal = true;
+	protected static String terminalName;
 	protected static JTextArea id_txt;
 	protected static JTextArea status_txt;
 
 	public void startNFCTerminal() {
-		CardTerminal cardTerminal = TerminalUtils.getAvailableTerminal()
-				.getCardTerminal();
+		try {
+			CardTerminal cardTerminal = TerminalUtils.getAvailableTerminal().getCardTerminal();
+			terminalName = cardTerminal.getName();
+			HostCardEmulationTagScanner tagScanner = new HostCardEmulationTagScanner(cardTerminal);
+			status_txt.setText("Terminal Founded!\n");
+			status_txt.append("Terminal Name: " + cardTerminal.getName() + "\n");
+			tagScanner.run();
+		} catch (RuntimeException e) {
+			status_txt.setForeground(Color.RED);
+			status_txt.setText(
+					"There is no Terminal Discovered!" + "\n" + "Please replug the device and restart the program");
+		}
 
-		status_txt.setText("Terminal Founded!" + "\n");
-		status_txt.append("Terminal name: " + cardTerminal.getName() + "\n"
-				+ "");
-
-		HostCardEmulationTagScanner tagScanner = new HostCardEmulationTagScanner(
-				cardTerminal);
-		tagScanner.run();
 	}
 
 	protected void initUI() {
@@ -70,20 +76,17 @@ public class HceDemo {
 		JLabel status_label = new JLabel("Status: ");
 
 		status_txt = new JTextArea("None\n");
-		
+
 		JScrollPane jsp = new JScrollPane(status_txt);
 		jsp.setPreferredSize(new Dimension(650, 300));
 
 		status_txt.setLineWrap(true);
 		status_txt.setWrapStyleWord(true);
 
-//		status_txt.setPreferredSize(new Dimension(650, 300));
+		// status_txt.setPreferredSize(new Dimension(650, 300));
 		status_txt.setEditable(false);
-		
-		jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-		
-		
+		jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
 		northPanel.add(id_label);
 		northPanel.add(id_txt);
@@ -95,6 +98,10 @@ public class HceDemo {
 		jf.add(westPanel, BorderLayout.WEST);
 		jf.add(centerPanel, BorderLayout.CENTER);
 
+		// if(hasTerminal){
+		// status_txt
+		// }
+
 		jf.setVisible(true);
 
 	}
@@ -103,20 +110,9 @@ public class HceDemo {
 
 		HceDemo hd = new HceDemo();
 
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
+		hd.initUI();
 
-				hd.initUI();
+		hd.startNFCTerminal();
 
-			}
-		});
-
-		try {
-			hd.startNFCTerminal();
-		} catch (IllegalArgumentException e) {
-			status_txt.setText("No supported card terminal found." + "\n"
-					+ "Please replug the device and restart the program");
-		}
 	}
 }

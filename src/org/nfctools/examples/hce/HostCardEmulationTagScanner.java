@@ -1,5 +1,7 @@
 package org.nfctools.examples.hce;
 
+import java.awt.Color;
+
 import javax.smartcardio.Card;
 import javax.smartcardio.CardException;
 import javax.smartcardio.CardTerminal;
@@ -47,7 +49,8 @@ public class HostCardEmulationTagScanner extends AbstractTerminalTagScanner {
 			}
 			catch (CardException e) {
 				e.printStackTrace();
-				HceDemo.status_txt.append("Device has been removed" + "\n"
+				HceDemo.status_txt.setForeground(Color.RED);
+				HceDemo.status_txt.setText("Device has been removed" + "\n"
 						+ "Please replug the device and restart the program");
 				HceDemo.status_txt.setCaretPosition(HceDemo.status_txt.getDocument().getLength());
 				break;
