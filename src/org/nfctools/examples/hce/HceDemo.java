@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.smartcardio.CardException;
 import javax.smartcardio.CardTerminal;
@@ -35,7 +36,6 @@ public class HceDemo {
 
 	static boolean isDataIn = false;
 
-	protected static boolean hasTerminal = true;
 	protected static String terminalName;
 	protected static JTextArea id_txt;
 	protected static JTextArea status_txt;
@@ -97,10 +97,6 @@ public class HceDemo {
 		jf.add(northPanel, BorderLayout.NORTH);
 		jf.add(westPanel, BorderLayout.WEST);
 		jf.add(centerPanel, BorderLayout.CENTER);
-
-		// if(hasTerminal){
-		// status_txt
-		// }
 
 		jf.setVisible(true);
 

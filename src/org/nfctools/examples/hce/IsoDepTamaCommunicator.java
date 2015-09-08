@@ -81,11 +81,20 @@ public class IsoDepTamaCommunicator extends AbstractTamaCommunicator {
 			log.info("Received: " + dataIn);
 			
 			String[] temp = dataIn.split(":");
+			String nfcCardNum=temp[1].replace(" ", "");
 
 			HceDemo.status_txt.append("Received " + dataIn+"\n");
 			HceDemo.status_txt.setCaretPosition(HceDemo.status_txt.getDocument().getLength());
-			HceDemo.id_txt.setText(temp[1]);
+			HceDemo.id_txt.setText(nfcCardNum);
+			DBConnect dbc = new DBConnect();
+			dbc.updateStatus(nfcCardNum);
 			
+			  try {
+				Thread.sleep(250);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 	}
