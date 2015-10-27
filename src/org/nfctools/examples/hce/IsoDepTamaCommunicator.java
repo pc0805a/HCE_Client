@@ -18,8 +18,7 @@ public class IsoDepTamaCommunicator extends AbstractTamaCommunicator {
 	private Logger log = LoggerFactory.getLogger(getClass());
 	private int messageCounter = 0;
 	private static final byte[] CLA_INS_P1_P2 = { 0x00, (byte) 0xA4, 0x04, 0x00 };
-	private static final byte[] AID_ANDROID = { (byte) 0xF0, 0x01, 0x02, 0x03,
-			0x04, 0x05, 0x06 };
+	private static final byte[] AID_ANDROID = { (byte) 0xF0, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
 
 	public IsoDepTamaCommunicator(ByteArrayReader reader, ByteArrayWriter writer) {
 		super(reader, writer);
@@ -36,18 +35,15 @@ public class IsoDepTamaCommunicator extends AbstractTamaCommunicator {
 
 	public void connectAsInitiator() throws IOException {
 		while (true) {
-			InListPassiveTargetResp inListPassiveTargetResp = sendMessage(new InListPassiveTargetReq(
-					(byte) 1, (byte) 0, new byte[0]));
+			InListPassiveTargetResp inListPassiveTargetResp = sendMessage(
+					new InListPassiveTargetReq((byte) 1, (byte) 0, new byte[0]));
 			if (inListPassiveTargetResp.getNumberOfTargets() > 0) {
-				log.info("TargetData: "
-						+ NfcUtils.convertBinToASCII(inListPassiveTargetResp
-								.getTargetData()));
+				log.info("TargetData: " + NfcUtils.convertBinToASCII(inListPassiveTargetResp.getTargetData()));
 				if (inListPassiveTargetResp.isIsoDepSupported()) {
 					log.info("IsoDep Supported");
 					byte[] selectAidApdu = createSelectAidApdu(AID_ANDROID);
-					DataExchangeResp resp = sendMessage(new DataExchangeReq(
-							inListPassiveTargetResp.getTargetId(), false,
-							selectAidApdu, 0, selectAidApdu.length));
+					DataExchangeResp resp = sendMessage(new DataExchangeReq(inListPassiveTargetResp.getTargetId(),
+							false, selectAidApdu, 0, selectAidApdu.length));
 					String dataIn = new String(resp.getDataOut());
 					log.info("Received: " + dataIn);
 					if (dataIn.startsWith("This is")) {
@@ -67,35 +63,32 @@ public class IsoDepTamaCommunicator extends AbstractTamaCommunicator {
 		}
 	}
 
-	private void exchangeData(InListPassiveTargetResp inListPassiveTargetResp)
-			throws IOException {
+	private void exchangeData(InListPassiveTargetResp inListPassiveTargetResp) throws IOException {
 		DataExchangeResp resp;
 		String dataIn;
 		while (true) {
-			byte[] dataOut = ("Message from desktop: " + messageCounter++)
-					.getBytes();
-			resp = sendMessage(new DataExchangeReq(
-					inListPassiveTargetResp.getTargetId(), false, dataOut, 0,
-					dataOut.length));
+			byte[] dataOut = ("Message from desktop: " + messageCounter++).getBytes();
+			resp = sendMessage(
+					new DataExchangeReq(inListPassiveTargetResp.getTargetId(), false, dataOut, 0, dataOut.length));
 			dataIn = new String(resp.getDataOut());
 			log.info("Received: " + dataIn);
-			
-			String[] temp = dataIn.split(":");
-			String nfcCardNum=temp[1].replace(" ", "");
 
-			HceDemo.status_txt.append("Received " + dataIn+"\n");
+			String[] temp = dataIn.split(":");
+			String id = temp[1];
+
+			HceDemo.status_txt.append("Received " + dataIn + "\n");
 			HceDemo.status_txt.setCaretPosition(HceDemo.status_txt.getDocument().getLength());
-			HceDemo.id_txt.setText(nfcCardNum);
+			HceDemo.id_txt.setText(id);
 			DBConnect dbc = new DBConnect();
-			dbc.updateStatus(nfcCardNum);
-			
-			  try {
+			dbc.updateStatus(temp);
+
+			try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 	}
 }
