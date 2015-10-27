@@ -34,6 +34,7 @@ public class DBConnect {
         postDataParams.put("year", data[4]);
         postDataParams.put("month", data[5]);
         postDataParams.put("day", data[6]);
+        postDataParams.put("time", data[7]);
         postDataParams.put("num", data[8]);
 
         String result = getInfo(postURL, postDataParams);
