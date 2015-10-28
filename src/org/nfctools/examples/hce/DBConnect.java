@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 
 public class DBConnect {
 
-	protected void updateStatus(String[] data) throws IOException {
+	protected int updateStatus(String[] data) throws IOException {
 
 		URL url = new URL("http://140.136.150.92/nfcReport.php");
 		String result = "";
@@ -103,12 +103,14 @@ public class DBConnect {
 				HceDemo.appendTxt("未掛號");
 				break;
 			case -1:
-				HceDemo.appendTxt("尚未建立資料");
+				HceDemo.appendTxt("尚未建立資料手機尚未綁定");
 				break;
 			}
 		
 			
 		}
+		
+		return Integer.parseInt(result);
 	}
 
 }

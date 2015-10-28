@@ -19,6 +19,8 @@ public class IsoDepTamaCommunicator extends AbstractTamaCommunicator {
 	private int messageCounter = 0;
 	private static final byte[] CLA_INS_P1_P2 = { 0x00, (byte) 0xA4, 0x04, 0x00 };
 	private static final byte[] AID_ANDROID = { (byte) 0xF0, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
+	
+	private int arrival_code=-2;//dafault = -2
 
 	public IsoDepTamaCommunicator(ByteArrayReader reader, ByteArrayWriter writer) {
 		super(reader, writer);
@@ -67,7 +69,7 @@ public class IsoDepTamaCommunicator extends AbstractTamaCommunicator {
 		DataExchangeResp resp;
 		String dataIn;
 		while (true) {
-			byte[] dataOut = ("Message from desktop: " + messageCounter++).getBytes();
+			byte[] dataOut = ("Message from desktop:" + arrival_code).getBytes();
 			resp = sendMessage(
 					new DataExchangeReq(inListPassiveTargetResp.getTargetId(), false, dataOut, 0, dataOut.length));
 			dataIn = new String(resp.getDataOut());
@@ -80,7 +82,7 @@ public class IsoDepTamaCommunicator extends AbstractTamaCommunicator {
 			HceDemo.status_txt.setCaretPosition(HceDemo.status_txt.getDocument().getLength());
 			HceDemo.id_txt.setText(id);
 			DBConnect dbc = new DBConnect();
-			dbc.updateStatus(temp);
+			arrival_code = dbc.updateStatus(temp);
 
 			try {
 				Thread.sleep(250);
