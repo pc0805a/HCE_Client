@@ -28,7 +28,7 @@ public class DBConnect {
 		String day = "day=" + data[6];
 		String time = "time=" + data[7];
 		String num = "num=" + data[8];
-		
+		String imei = "imei=" + data[9];
 		
 		
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -51,7 +51,8 @@ public class DBConnect {
 								month + "&" +
 								day + "&" +
 								time + "&" +
-								num;
+								num  + "&" +
+								imei;
 			
 			dataOut.write(tempData.getBytes("utf-8"));
 			
@@ -83,30 +84,28 @@ public class DBConnect {
 			connection.disconnect();
 			//if(Integer.parseInt(result)==0);
 			System.out.println(result);
-			/*
+			
 			switch(Integer.parseInt(result))
 			{
 			case 0:
-				HceDemo.status_txt.append("未到\n");
-				HceDemo.status_txt.setCaretPosition(HceDemo.status_txt.getDocument().getLength());
+				HceDemo.appendTxt("未到");
 				break;
 			case 1:
-				HceDemo.status_txt.append("已到\n");
-				HceDemo.status_txt.setCaretPosition(HceDemo.status_txt.getDocument().getLength());
+				HceDemo.appendTxt("已到");
 				break;
 			case 2:
-				HceDemo.status_txt.append("看診完畢\n");
-				HceDemo.status_txt.setCaretPosition(HceDemo.status_txt.getDocument().getLength());
+				HceDemo.appendTxt("看診完畢");
 				break;
 			case 3:
-				HceDemo.status_txt.append("過號\n");
-				HceDemo.status_txt.setCaretPosition(HceDemo.status_txt.getDocument().getLength());
+				HceDemo.appendTxt("過號");
 				break;
 			case 4:
-				HceDemo.status_txt.append("未掛號\n");
-				HceDemo.status_txt.setCaretPosition(HceDemo.status_txt.getDocument().getLength());
+				HceDemo.appendTxt("未掛號");
 				break;
-			}*/
+			case -1:
+				HceDemo.appendTxt("尚未建立資料");
+				break;
+			}
 		
 			
 		}

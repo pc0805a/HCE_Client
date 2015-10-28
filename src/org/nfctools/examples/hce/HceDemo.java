@@ -111,4 +111,10 @@ public class HceDemo {
 		hd.startNFCTerminal();
 
 	}
+	
+	public static void appendTxt(String txt)
+	{
+		status_txt.append(txt+"\n");
+		status_txt.setCaretPosition(status_txt.getDocument().getLength());
+	}
 }
