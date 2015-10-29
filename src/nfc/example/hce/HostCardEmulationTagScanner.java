@@ -10,7 +10,6 @@ import org.nfctools.api.TagType;
 import org.nfctools.scio.TerminalStatus;
 import org.nfctools.spi.acs.AbstractTerminalTagScanner;
 import org.nfctools.spi.acs.ApduTagReaderWriter;
-import org.nfctools.spi.tama.TamaException;
 
 public class HostCardEmulationTagScanner extends AbstractTerminalTagScanner {
 

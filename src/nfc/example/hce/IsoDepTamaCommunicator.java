@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 public class IsoDepTamaCommunicator extends AbstractTamaCommunicator {
 
 	private Logger log = LoggerFactory.getLogger(getClass());
-	private int messageCounter = 0;
 	private static final byte[] CLA_INS_P1_P2 = { 0x00, (byte) 0xA4, 0x04, 0x00 };
 	private static final byte[] AID_ANDROID = { (byte) 0xF0, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06 };
 	

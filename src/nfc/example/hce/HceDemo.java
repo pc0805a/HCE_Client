@@ -2,37 +2,18 @@ package nfc.example.hce;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.ComponentOrientation;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-
-import javax.smartcardio.CardException;
 import javax.smartcardio.CardTerminal;
-import javax.swing.ButtonGroup;
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
-import javax.swing.text.DefaultCaret;
-
 import org.nfctools.examples.TerminalUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.nfctools.scio.*;
+
 
 public class HceDemo {
-
-	private Logger log = LoggerFactory.getLogger(getClass());
 
 	static boolean isDataIn = false;
 
@@ -42,6 +23,7 @@ public class HceDemo {
 
 	public void startNFCTerminal() {
 		try {
+			@SuppressWarnings("deprecation")
 			CardTerminal cardTerminal = TerminalUtils.getAvailableTerminal().getCardTerminal();
 			terminalName = cardTerminal.getName();
 			HostCardEmulationTagScanner tagScanner = new HostCardEmulationTagScanner(cardTerminal);
