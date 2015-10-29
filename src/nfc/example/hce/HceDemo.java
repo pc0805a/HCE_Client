@@ -1,4 +1,4 @@
-package org.nfctools.examples.hce;
+package nfc.example.hce;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
