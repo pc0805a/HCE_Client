@@ -76,11 +76,15 @@ public class IsoDepTamaCommunicator extends AbstractTamaCommunicator {
 			log.info("Received: " + dataIn);
 
 			String[] temp = dataIn.split(":");
-			String id = temp[1];
 
-			HceDemo.status_txt.append("Received " + dataIn + "\n");
-			HceDemo.status_txt.setCaretPosition(HceDemo.status_txt.getDocument().getLength());
-			HceDemo.id_txt.setText(id);
+//			HceDemo.status_txt.append("Received " + dataIn + "\n");
+//			HceDemo.status_txt.setCaretPosition(HceDemo.status_txt.getDocument().getLength());
+			
+//			HceDemo.status_txt.setText(dataIn + "\n");
+//			HceDemo.id_txt.setText(id);
+			
+			HceDemo.appendInfo(temp);
+			
 			DBConnect dbc = new DBConnect();
 			arrival_code = dbc.updateStatus(temp);
 

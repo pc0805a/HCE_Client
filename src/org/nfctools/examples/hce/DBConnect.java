@@ -1,5 +1,7 @@
 package org.nfctools.examples.hce;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -84,31 +86,35 @@ public class DBConnect {
 			connection.disconnect();
 			//if(Integer.parseInt(result)==0);
 			System.out.println(result);
+
+			HceDemo.status_txt.setForeground(Color.BLACK);
 			
 			switch(Integer.parseInt(result))
 			{
-			case 0:
-				HceDemo.appendTxt("未到");
+			case 0:	
+				HceDemo.status_txt.setText("未到");
 				break;
 			case 1:
-				HceDemo.appendTxt("已到");
+				HceDemo.status_txt.setText("已到");
 				break;
 			case 2:
-				HceDemo.appendTxt("看診完畢");
+				HceDemo.status_txt.setText("看診完畢");
 				break;
 			case 3:
-				HceDemo.appendTxt("過號");
+				HceDemo.status_txt.setText("過號");
 				break;
 			case 4:
-				HceDemo.appendTxt("未掛號");
+				HceDemo.status_txt.setText("未掛號");
 				break;
 			case -1:
-				HceDemo.appendTxt("尚未建立資料手機尚未綁定");
+				HceDemo.status_txt.setText("尚未建立資料手機尚未綁定");
 				break;
 			}
 		
 			
 		}
+		
+		
 		
 		return Integer.parseInt(result);
 	}
