@@ -1,4 +1,4 @@
-package org.nfctools.examples.hce;
+package nfc.example.hce;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -110,6 +110,7 @@ public class DBConnect {
 				HceDemo.status_txt.setText("尚未建立資料手機尚未綁定");
 				break;
 			}
+			 HostCardEmulationTagScanner.mtimer.cancel();
 		
 			
 		}

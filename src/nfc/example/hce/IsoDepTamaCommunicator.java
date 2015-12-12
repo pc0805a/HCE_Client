@@ -1,4 +1,4 @@
-package org.nfctools.examples.hce;
+package nfc.example.hce;
 
 import java.io.IOException;
 

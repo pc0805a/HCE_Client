@@ -1,4 +1,4 @@
-package org.nfctools.examples.hce;
+package nfc.example.hce;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -35,7 +35,7 @@ public class HostCardEmulationTagScanner extends AbstractTerminalTagScanner {
 					
 					IsoDepTamaCommunicator tamaCommunicator = new IsoDepTamaCommunicator(readerWriter, readerWriter);
 					tamaCommunicator.connectAsInitiator();
-					mtimer.cancel();
+					
 
 				}
 				catch (Exception e1) {
@@ -76,6 +76,10 @@ public class HostCardEmulationTagScanner extends AbstractTerminalTagScanner {
 		public void run(){
 			HceDemo.status_txt.setText("");
 			HceDemo.status_txt.setForeground(Color.BLACK);
+		}
+		public boolean cancel()
+		{
+			return false;
 		}
 	}
 	
